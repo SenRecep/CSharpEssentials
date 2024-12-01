@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    
+    <Title>CSharp Essentials</Title>
+    <Authors>Recep Şen</Authors>
+    <Product>CSharp Essentials</Product>
+    <Description>Simplifies C# development by providing essential building blocks, including a framework for implementing common design patterns like the Result Pattern.</Description>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="Entity\SoftDeletableEntityBaseTId.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
+  </ItemGroup>
+</Project>
