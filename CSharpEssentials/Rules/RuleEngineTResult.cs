@@ -7,11 +7,11 @@ public static partial class RuleEngine
     public static Result<TResult> Evaluate<TContext, TResult>(IRuleBase<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default) =>
             InternalEvaluate(rule, context, cancellationToken);
 
-    private static Result<TResult> Evaluate<TContext, TResult>(IRule<TContext, TResult> rule, TContext context)
+    private static Result<TResult> Evaluate<TContext, TResult>(IRule<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = rule.Evaluate(context);
+            var result = rule.Evaluate(context, cancellationToken);
             return result;
         }
         catch (Exception ex)
@@ -32,17 +32,17 @@ public static partial class RuleEngine
         }
     }
 
-    private static Result<TResult> Evaluate<TContext, TResult>(ILinearRule<TContext, TResult> rule, TContext context)
+    private static Result<TResult> Evaluate<TContext, TResult>(ILinearRule<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = rule.Evaluate(context);
+            var result = rule.Evaluate(context, cancellationToken);
             if (result.IsFailure)
                 return result;
             if (rule.Next is null)
                 return result;
 
-            return InternalEvaluate(rule.Next, context);
+            return InternalEvaluate(rule.Next, context, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -68,18 +68,18 @@ public static partial class RuleEngine
         }
     }
 
-    private static Result<TResult> Evaluate<TContext, TResult>(IConditionalRule<TContext, TResult> rule, TContext context)
+    private static Result<TResult> Evaluate<TContext, TResult>(IConditionalRule<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = rule.Evaluate(context);
+            var result = rule.Evaluate(context, cancellationToken);
             return result.IsFailure
                 ? rule.Failure is null
                     ? result
-                    : InternalEvaluate(rule.Failure, context)
+                    : InternalEvaluate(rule.Failure, context, cancellationToken)
                 : rule.Success is null
                     ? result
-                    : InternalEvaluate(rule.Success, context);
+                    : InternalEvaluate(rule.Success, context, cancellationToken);
         }
         catch (Exception ex)
         {
@@ -106,15 +106,15 @@ public static partial class RuleEngine
         }
     }
 
-    private static Result<TResult> Evaluate<TContext, TResult>(IAndRule<TContext, TResult> rule, TContext context)
+    private static Result<TResult> Evaluate<TContext, TResult>(IAndRule<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = rule.Evaluate(context);
+            var result = rule.Evaluate(context, cancellationToken);
             if (result.IsFailure)
                 return result;
 
-            var andResult = Result<TResult>.And(rule.Rules.Select(r => InternalEvaluate(r, context)));
+            var andResult = Result<TResult>.And(rule.Rules.Select(r => InternalEvaluate(r, context, cancellationToken)));
             if (andResult.IsFailure)
                 return andResult.Errors;
             return andResult.Value[0];
@@ -144,15 +144,15 @@ public static partial class RuleEngine
         }
     }
 
-    private static Result<TResult> Evaluate<TContext, TResult>(IOrRule<TContext, TResult> rule, TContext context)
+    private static Result<TResult> Evaluate<TContext, TResult>(IOrRule<TContext, TResult> rule, TContext context, CancellationToken cancellationToken = default)
     {
         try
         {
-            var result = rule.Evaluate(context);
+            var result = rule.Evaluate(context, cancellationToken);
             if (result.IsFailure)
                 return result;
 
-            return Result<TResult>.Or(rule.Rules.Select(r => InternalEvaluate(r, context)));
+            return Result<TResult>.Or(rule.Rules.Select(r => InternalEvaluate(r, context, cancellationToken)));
         }
         catch (Exception ex)
         {
@@ -181,11 +181,11 @@ public static partial class RuleEngine
         return rule switch
         {
             IAsyncRule<TContext, TResult> asyncRule => InternalEvaluateAsync(asyncRule, context, cancellationToken).GetAwaiter().GetResult(),
-            IConditionalRule<TContext, TResult> conditionalRule => Evaluate(conditionalRule, context),
-            ILinearRule<TContext, TResult> linearRule => Evaluate(linearRule, context),
-            IAndRule<TContext, TResult> andRule => Evaluate(andRule, context),
-            IOrRule<TContext, TResult> orRule => Evaluate(orRule, context),
-            IRule<TContext, TResult> simpleRule => Evaluate(simpleRule, context),
+            IConditionalRule<TContext, TResult> conditionalRule => Evaluate(conditionalRule, context, cancellationToken),
+            ILinearRule<TContext, TResult> linearRule => Evaluate(linearRule, context, cancellationToken),
+            IAndRule<TContext, TResult> andRule => Evaluate(andRule, context, cancellationToken),
+            IOrRule<TContext, TResult> orRule => Evaluate(orRule, context, cancellationToken),
+            IRule<TContext, TResult> simpleRule => Evaluate(simpleRule, context, cancellationToken),
             _ => RuleErrors.RuleEngineNotFoundError(rule.GetType().Name)
         };
     }
