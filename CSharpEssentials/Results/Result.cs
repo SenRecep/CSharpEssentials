@@ -9,6 +9,10 @@ public readonly partial record struct Result : IResult
 {
     private readonly Error[]? _errors = null;
 
+    public Result()
+    {
+        throw new InvalidOperationException("Result must have a value or an error");
+    }
     private Result(IEnumerable<Error> errors)
     {
         ArgumentNullException.ThrowIfNull(errors, nameof(errors));

@@ -32,17 +32,4 @@ public abstract partial class BaseDbContext<TContext> : DbContext
         Logger.LogInformation("Context {DbContextInstanceId} disposed", _instanceId);
         base.Dispose();
     }
-
-    public async Task CreateAsync(ILogger<TContext> logger)
-    {
-        try
-        {
-            await this.Database.MigrateAsync();
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Database Migrate Error");
-            throw;
-        }
-    }
 }

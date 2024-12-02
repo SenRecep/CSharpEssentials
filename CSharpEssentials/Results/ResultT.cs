@@ -11,8 +11,10 @@ public readonly partial record struct Result<TValue> : IResult<TValue>
     private readonly Error[]? _errors = null;
     private readonly TValue? _value = default;
 
-
-    public Result(TValue value)
+    public Result(){
+        throw new InvalidOperationException("Result must have a value or an error");
+    }
+    private Result(TValue value)
     {
         ArgumentNullException.ThrowIfNull(value, nameof(value));
         _value = value;
@@ -77,6 +79,6 @@ public readonly partial record struct Result<TValue> : IResult<TValue>
         return ResultLogic.CreateErrorCodeHash(ErrorsOrEmptyArray);
     }
 
-    public static Result<TValue[]> operator +(Result<TValue> left,Result<TValue> right) => And(left, right);
+    public static Result<TValue[]> operator +(Result<TValue> left, Result<TValue> right) => And(left, right);
 
 }
