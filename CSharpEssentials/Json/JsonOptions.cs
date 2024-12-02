@@ -58,19 +58,10 @@ public static class JsonOptions
     /// <returns></returns>
     public static JsonSerializerOptions CreateOptionsWithConverters(params JsonConverter[] converters)
     {
-        var options = new JsonSerializerOptions(JsonSerializerDefaults.Web)
-        {
-            ReferenceHandler = ReferenceHandler.IgnoreCycles,
-            WriteIndented = false,
-            PropertyNameCaseInsensitive = true,
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping,
-            DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull,
-        };
-
-        foreach (var converter in converters)
-            options.Converters.Add(converter);
-
+        var options = DefaultOptionsWithoutConverters.Create(options=>{
+            foreach (var converter in converters)
+                options.Converters.Add(converter);
+        });
         return options;
     }
 
