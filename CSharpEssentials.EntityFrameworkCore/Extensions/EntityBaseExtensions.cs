@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using CSharpEssentials.Entity.Interfaces;
+using CSharpEssentials.Interfaces;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -49,6 +49,14 @@ public static class EntityBaseExtensions
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Id).IsRequired();
         builder.SoftDeletableEntityBaseMap(userIdMaxLength);
+    }
+
+    public static void OptimisticConcurrencyVersionMap<TEntity>(this EntityTypeBuilder<TEntity> builder,string propertyName = "RowVersion")
+        where TEntity : class
+    {
+            builder
+                .Property<byte[]>(propertyName)
+                .IsRowVersion();
     }
 
     public static void AddQueryFilter<T>(this EntityTypeBuilder entityTypeBuilder, Expression<Func<T, bool>> expression)

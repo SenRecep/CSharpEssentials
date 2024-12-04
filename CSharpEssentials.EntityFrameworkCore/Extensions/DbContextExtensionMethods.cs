@@ -1,5 +1,5 @@
 using System.Linq.Expressions;
-using CSharpEssentials.Entity.Interfaces;
+using CSharpEssentials.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace CSharpEssentials.EntityFrameworkCore;

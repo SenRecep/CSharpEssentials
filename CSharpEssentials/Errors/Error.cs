@@ -1,6 +1,4 @@
-﻿using CSharpEssentials.Errors;
-
-namespace CSharpEssentials;
+﻿namespace CSharpEssentials;
 [Serializable]
 public readonly record struct Error : IError
 {

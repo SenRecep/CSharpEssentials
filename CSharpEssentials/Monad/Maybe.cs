@@ -1,6 +1,6 @@
 
 using System.Diagnostics.CodeAnalysis;
-using CSharpEssentials.Monad.Interfaces;
+using CSharpEssentials.Interfaces;
 
 namespace CSharpEssentials;
 

@@ -1,7 +1,7 @@
 ﻿using System.Buffers.Text;
 using System.Runtime.InteropServices;
 
-namespace CSharpEssentials.Guids;
+namespace CSharpEssentials;
 public static class Guider
 {
     private const char _equal = '=', _hyphen = '-', _plus = '+', _slash = '/', _underscore = '_';

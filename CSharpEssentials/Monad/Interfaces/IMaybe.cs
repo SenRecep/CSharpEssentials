@@ -1,4 +1,4 @@
-namespace CSharpEssentials.Monad.Interfaces;
+namespace CSharpEssentials.Interfaces;
 
 public interface IMaybe;
 public interface IMaybe<T> : IMaybe

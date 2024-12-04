@@ -1,4 +1,3 @@
-using System;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CSharpEssentials.EntityFrameworkCore.Converters;

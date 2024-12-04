@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using CSharpEssentials.Json;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +16,7 @@ public static class PropertyBuilderExtensions
 
     public static PropertyBuilder<TProperty> HasJsonConversion<TProperty>(this PropertyBuilder<TProperty> builder, string columnType = "jsonb", JsonSerializerOptions? options = null)
     {
-        var jsonOptions = options ?? JsonOptions.DefaultOptions;
+        var jsonOptions = options ?? EnhancedJsonSerializerOptions.DefaultOptions;
         return builder.HasConversion(
                   v => v.ConvertToJson(jsonOptions),
                   v => v.ConvertFromJson<TProperty>(jsonOptions) ?? default!)

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace CSharpEssentials.Json;
 
-public static class JsonOptions
+public static class EnhancedJsonSerializerOptions
 {
     /// <summary>
     /// The default JSON serializer options.
@@ -58,7 +58,8 @@ public static class JsonOptions
     /// <returns></returns>
     public static JsonSerializerOptions CreateOptionsWithConverters(params JsonConverter[] converters)
     {
-        var options = DefaultOptionsWithoutConverters.Create(options=>{
+        var options = DefaultOptionsWithoutConverters.Create(options =>
+        {
             foreach (var converter in converters)
                 options.Converters.Add(converter);
         });
@@ -71,11 +72,42 @@ public static class JsonOptions
     /// <param name="options"></param>
     /// <param name="configure"></param>
     /// <returns></returns>
-    public static JsonSerializerOptions Create(this JsonSerializerOptions options,Action<JsonSerializerOptions> configure)
+    public static JsonSerializerOptions Create(this JsonSerializerOptions options, Action<JsonSerializerOptions> configure)
     {
-        var jsonSerializerOptions=new JsonSerializerOptions(options);
+        var jsonSerializerOptions = new JsonSerializerOptions(options);
         configure(jsonSerializerOptions);
         return jsonSerializerOptions;
 
     }
+
+
+    public static JsonSerializerOptions ApplyTo(this JsonSerializerOptions source, JsonSerializerOptions target)
+    {
+        target.ReferenceHandler = source.ReferenceHandler;
+        target.WriteIndented = source.WriteIndented;
+        target.PropertyNameCaseInsensitive = source.PropertyNameCaseInsensitive;
+        target.PropertyNamingPolicy = source.PropertyNamingPolicy;
+        target.Encoder = source.Encoder;
+        target.DefaultIgnoreCondition = source.DefaultIgnoreCondition;
+        target.DefaultBufferSize = source.DefaultBufferSize;
+        target.IgnoreReadOnlyFields = source.IgnoreReadOnlyFields;
+        target.IgnoreReadOnlyProperties = source.IgnoreReadOnlyProperties;
+        target.ReadCommentHandling = source.ReadCommentHandling;
+        target.AllowTrailingCommas = source.AllowTrailingCommas;
+        target.WriteIndented = source.WriteIndented;
+        target.Encoder = source.Encoder;
+        target.NumberHandling = source.NumberHandling;
+        target.MaxDepth = source.MaxDepth;
+
+
+        foreach (var converter in source.Converters)
+        {
+            if (target.Converters.Any(c => c.Type == converter.Type)) continue;
+            target.Converters.Add(converter);
+        }
+
+        return target;
+    }
+
+    public static JsonSerializerOptions ApplyFrom(this JsonSerializerOptions source, JsonSerializerOptions target) => target.ApplyTo(source);
 }

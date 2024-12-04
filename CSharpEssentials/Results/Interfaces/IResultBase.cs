@@ -1,6 +1,6 @@
-using CSharpEssentials.Results.Comparers;
+using CSharpEssentials.Comparers;
 
-namespace CSharpEssentials.Results.Interfaces;
+namespace CSharpEssentials.Interfaces;
 
 public interface IResultBase
 {

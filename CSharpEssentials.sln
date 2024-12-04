@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpEssentials.EntityFram
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpEssentials.Tests", "CSharpEssentials.Tests\CSharpEssentials.Tests.csproj", "{2DE13474-FB21-44C7-B0C9-6C2A158499CE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpEssentials.AspNetCore", "CSharpEssentials.AspNetCore\CSharpEssentials.AspNetCore.csproj", "{DAA9DB27-F9A4-490E-A73D-276CF4F98386}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpEssentials.RequestResponseLogging", "CSharpEssentials.RequestResponseLogging\CSharpEssentials.RequestResponseLogging.csproj", "{3152B8D2-997B-4761-8E34-3AE984A10B04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{2DE13474-FB21-44C7-B0C9-6C2A158499CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DE13474-FB21-44C7-B0C9-6C2A158499CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2DE13474-FB21-44C7-B0C9-6C2A158499CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAA9DB27-F9A4-490E-A73D-276CF4F98386}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA9DB27-F9A4-490E-A73D-276CF4F98386}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAA9DB27-F9A4-490E-A73D-276CF4F98386}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAA9DB27-F9A4-490E-A73D-276CF4F98386}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3152B8D2-997B-4761-8E34-3AE984A10B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3152B8D2-997B-4761-8E34-3AE984A10B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3152B8D2-997B-4761-8E34-3AE984A10B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3152B8D2-997B-4761-8E34-3AE984A10B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,4 +1,4 @@
-namespace CSharpEssentials.Entity.Interfaces;
+namespace CSharpEssentials.Interfaces;
 
 public interface IDeletableEntityBase : IEntityBase, ISoftDeletable { }
 public interface IDeletableEntityBase<TId> : IEntityBase<TId>, IDeletableEntityBase

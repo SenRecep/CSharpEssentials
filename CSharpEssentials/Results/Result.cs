@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using CSharpEssentials.Results;
-using CSharpEssentials.Results.Interfaces;
+using CSharpEssentials.Interfaces;
 
 namespace CSharpEssentials;
 

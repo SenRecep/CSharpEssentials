@@ -3,6 +3,7 @@
 /// <summary>
 /// Error types.
 /// </summary>
+[StringEnum]
 public enum ErrorType:byte
 {
     Failure,

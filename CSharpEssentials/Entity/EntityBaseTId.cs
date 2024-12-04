@@ -1,5 +1,5 @@
 using System;
-using CSharpEssentials.Entity.Interfaces;
+using CSharpEssentials.Interfaces;
 
 namespace CSharpEssentials.Entity;
 

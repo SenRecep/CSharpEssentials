@@ -1,6 +1,6 @@
-using CSharpEssentials.Results.Comparers;
+using CSharpEssentials.Comparers;
 
-namespace CSharpEssentials.Results.Interfaces;
+namespace CSharpEssentials.Interfaces;
 /// <summary>
 /// Represents a result that can either be a success or a failure, with various methods to handle both cases.
 /// </summary>

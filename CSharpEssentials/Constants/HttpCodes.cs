@@ -1,4 +1,4 @@
-﻿namespace CSharpEssentials.Constants;
+﻿namespace CSharpEssentials;
 /// <summary>
 /// HTTP status codes.
 /// </summary>

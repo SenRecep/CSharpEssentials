@@ -14,32 +14,39 @@ public sealed class ErrorMetadata : Dictionary<string, object?>
 
 
     public static ErrorMetadata CreateEmpty() => [];
-    public static ErrorMetadata CreateWithStackTrace() => new("StackTrace", Environment.StackTrace);
-    public static ErrorMetadata CreateWithException(Exception ex) => new("Exception", ex);
-    public static ErrorMetadata CreateWithExceptionDetailed(Exception exception) => new()
+    public static ErrorMetadata CreateWithStackTrace() => new("stackTrace", Environment.StackTrace);
+    public static ErrorMetadata CreateWithException(Exception ex) => new("exception", ex);
+    public static ErrorMetadata CreateWithExceptionDetailed(Exception exception)
     {
-            { "Exception.Type", exception.GetType().Name},
-            { "Exception.StackTrace", exception.StackTrace },
-            { "Exception.Message", exception.Message },
-    };
+        var metadata = new ErrorMetadata()
+        {
+                { "exceptionType", exception.GetType().Name},
+                { "exceptionStackTrace", exception.StackTrace ?? Environment.StackTrace},
+                { "exceptionMessage", exception.Message },
+        };
+        if(exception.InnerException is not null)
+            metadata.Add("innerException", CreateWithExceptionDetailed(exception.InnerException));
+
+        return metadata;
+    }
 
     public ErrorMetadata AddStackTrace()
     {
-        TryAdd("StackTrace", Environment.StackTrace);
+        TryAdd("stackTrace", Environment.StackTrace);
         return this;
     }
 
     public ErrorMetadata AddException(Exception ex)
     {
-        TryAdd("Exception", ex);
+        TryAdd("exception", ex);
         return this;
     }
 
     public ErrorMetadata AddExceptionDetailed(Exception exception)
     {
-        TryAdd("Exception.Type", exception.GetType().Name);
-        TryAdd("Exception.StackTrace", exception.StackTrace ?? Environment.StackTrace);
-        TryAdd("Exception.Message", exception.Message);
+        TryAdd("exceptionType", exception.GetType().Name);
+        TryAdd("exceptionStackTrace", exception.StackTrace ?? Environment.StackTrace);
+        TryAdd("exceptionMessage", exception.Message);
         return this;
     }
 

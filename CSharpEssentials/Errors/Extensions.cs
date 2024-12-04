@@ -1,9 +1,7 @@
-﻿using CSharpEssentials.Constants;
-
-namespace CSharpEssentials.Errors;
-internal static class Extensions
+﻿namespace CSharpEssentials;
+public static class Extensions
 {
-    internal static byte ToIntType(this ErrorType type) => (byte)type;
+    public static byte ToIntType(this ErrorType type) => (byte)type;
     public static int ToHttpStatusCode(this ErrorType errorType)
     {
         return errorType switch

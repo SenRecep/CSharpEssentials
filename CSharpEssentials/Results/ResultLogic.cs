@@ -1,4 +1,4 @@
-namespace CSharpEssentials.Results;
+namespace CSharpEssentials;
 
 internal static class ResultLogic
 {

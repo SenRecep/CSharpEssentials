@@ -1,6 +1,7 @@
-using CSharpEssentials.Results.Comparers;
 
-namespace CSharpEssentials.Results.Interfaces;
+using CSharpEssentials.Comparers;
+
+namespace CSharpEssentials.Interfaces;
 
 
 /// <summary>

@@ -1,7 +1,5 @@
-﻿using CSharpEssentials.Entity.Interfaces;
-using CSharpEssentials.Guids;
-
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Diagnostics.CodeAnalysis;
+using CSharpEssentials.Interfaces;
 
 namespace CSharpEssentials;
 public static class GeneralExtensions

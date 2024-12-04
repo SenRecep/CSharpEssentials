@@ -59,7 +59,7 @@ public static class Extensions
     /// <param name="options"></param>
     /// <returns></returns>
     public static JsonDocument ConvertToJsonDocument<T>(this T data, JsonSerializerOptions? options = null) =>
-        JsonSerializer.SerializeToDocument(data, options ?? JsonOptions.DefaultOptions);
+        JsonSerializer.SerializeToDocument(data, options ?? EnhancedJsonSerializerOptions.DefaultOptions);
 
     /// <summary>
     /// Converts an object to a JSON string.
@@ -69,7 +69,7 @@ public static class Extensions
     /// <param name="options"></param>
     /// <returns></returns>
     public static string ConvertToJson<T>(this T data, JsonSerializerOptions? options = null) =>
-        JsonSerializer.Serialize(data, options ?? JsonOptions.DefaultOptions);
+        JsonSerializer.Serialize(data, options ?? EnhancedJsonSerializerOptions.DefaultOptions);
     /// <summary>
     /// Converts a JSON string to an object.
     /// </summary>
@@ -78,13 +78,13 @@ public static class Extensions
     /// <param name="options"></param>
     /// <returns></returns>
     public static TClass? ConvertFromJson<TClass>(this string json, JsonSerializerOptions? options = null) =>
-        JsonSerializer.Deserialize<TClass>(json, options ?? JsonOptions.DefaultOptions);
+        JsonSerializer.Deserialize<TClass>(json, options ?? EnhancedJsonSerializerOptions.DefaultOptions);
 
     /// <summary>
     /// Converts a JSON string to a JSON document.
     /// </summary>
     private static readonly Func<string, JsonDocument?>[] _deserializers = [
-        json => JsonSerializer.Deserialize<JsonDocument>(json, JsonOptions.DefaultOptions),
+        json => JsonSerializer.Deserialize<JsonDocument>(json, EnhancedJsonSerializerOptions.DefaultOptions),
         json => JsonDocument.Parse(json),
         json => json.ConvertToJsonDocument()];
 

@@ -1,4 +1,4 @@
-using CSharpEssentials.Results.Interfaces;
+using CSharpEssentials.Interfaces;
 
 namespace CSharpEssentials;
 

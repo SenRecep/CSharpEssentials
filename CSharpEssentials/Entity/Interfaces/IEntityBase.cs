@@ -1,6 +1,6 @@
 using System;
 
-namespace CSharpEssentials.Entity.Interfaces;
+namespace CSharpEssentials.Interfaces;
 
 public interface IEntityBase : ICreationAudit, IModificationAudit, IDomainEventHolder;
 public interface ISoftDeletableEntityBase : IEntityBase, ISoftDeletable;

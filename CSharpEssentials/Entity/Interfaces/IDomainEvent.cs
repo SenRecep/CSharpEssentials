@@ -1,6 +1,6 @@
 using System;
 using MediatR;
 
-namespace CSharpEssentials.Entity.Interfaces;
+namespace CSharpEssentials.Interfaces;
 
 public interface IDomainEvent: INotification;
