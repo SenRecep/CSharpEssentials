@@ -47,6 +47,10 @@ public sealed class ErrorMetadata : Dictionary<string, object?>
         TryAdd("exceptionType", exception.GetType().Name);
         TryAdd("exceptionStackTrace", exception.StackTrace ?? Environment.StackTrace);
         TryAdd("exceptionMessage", exception.Message);
+
+        if(exception.InnerException is not null)
+            TryAdd("innerException", CreateWithExceptionDetailed(exception.InnerException));
+
         return this;
     }
 
