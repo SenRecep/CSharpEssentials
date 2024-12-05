@@ -100,4 +100,58 @@ public static partial class ResultExtensions
         Result result = await task.WithCancellation(cancellationToken);
         return await result.Bind(func).WithCancellation(cancellationToken);
     }
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="task"></param>
+    /// <param name="func"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async ValueTask<Result<TOut>> BindAsync<TOut>(this ValueTask<Result> task, Func<Result<TOut>> func, CancellationToken cancellationToken = default)
+    {
+        Result result = await task.WithCancellation(cancellationToken);
+        return result.Bind(func);
+    }
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="task"></param>
+    /// <param name="func"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async ValueTask<Result> BindAsync(this ValueTask<Result> task, Func<Result> func, CancellationToken cancellationToken = default)
+    {
+        Result result = await task.WithCancellation(cancellationToken);
+        return result.Bind(func);
+    }
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="task"></param>
+    /// <param name="func"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async ValueTask<Result<TOut>> BindAsync<TOut>(this ValueTask<Result> task, Func<ValueTask<Result<TOut>>> func, CancellationToken cancellationToken = default)
+    {
+        Result result = await task.WithCancellation(cancellationToken);
+        return await result.Bind(func).WithCancellation(cancellationToken);
+    }
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="task"></param>
+    /// <param name="func"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    public static async ValueTask<Result> BindAsync(this ValueTask<Result> task, Func<ValueTask<Result>> func, CancellationToken cancellationToken = default)
+    {
+        Result result = await task.WithCancellation(cancellationToken);
+        return await result.Bind(func).WithCancellation(cancellationToken);
+    }
 }
