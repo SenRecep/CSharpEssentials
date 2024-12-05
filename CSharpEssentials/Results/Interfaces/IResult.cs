@@ -193,4 +193,49 @@ public interface IResult : IResultBase
     /// <param name="cancellationToken">A token to observe for cancellation requests.</param>
     /// <returns>A task representing the asynchronous operation.</returns>
     Task<Result> ThenDoAsync(Func<Task> action, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Result<TOut> Bind<TOut>(Func<Result<TOut>> func);
+    
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Result Bind(Func<Result> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Task<Result<TOut>> Bind<TOut>(Func<Task<Result<TOut>>> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Task<Result> Bind(Func<Task<Result>> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="valueTask"></param>
+    /// <returns></returns>
+    ValueTask<Result<TOut>> Bind<TOut>(Func<ValueTask<Result<TOut>>> valueTask);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="valueTask"></param>
+    /// <returns></returns>
+    ValueTask<Result> Bind(Func<ValueTask<Result>> valueTask);
 }

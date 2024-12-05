@@ -283,4 +283,49 @@ public interface IResult<TValue> : IResultBase
     /// <param name="cancellationToken">A token to cancel the asynchronous operation.</param>
     /// <returns>A task representing the asynchronous operation, containing the chained result.</returns>
     Task<Result<T>> ThenAsync<T>(Func<TValue, Task<T>> onSuccess, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Result<TOut> Bind<TOut>(Func<TValue, Result<TOut>> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Result Bind(Func<TValue, Result> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Task<Result<TOut>> Bind<TOut>(Func<TValue, Task<Result<TOut>>> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="func"></param>
+    /// <returns></returns>
+    Task<Result> Bind(Func<TValue, Task<Result>> func);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <typeparam name="TOut"></typeparam>
+    /// <param name="valueTask"></param>
+    /// <returns></returns>
+    ValueTask<Result<TOut>> Bind<TOut>(Func<TValue, ValueTask<Result<TOut>>> valueTask);
+
+    /// <summary>
+    /// Binds a function to the result.
+    /// </summary>
+    /// <param name="valueTask"></param>
+    /// <returns></returns>
+    ValueTask<Result> Bind(Func<TValue, ValueTask<Result>> valueTask);
 }
