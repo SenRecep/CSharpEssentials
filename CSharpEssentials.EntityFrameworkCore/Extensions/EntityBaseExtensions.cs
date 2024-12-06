@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using CSharpEssentials.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -51,12 +52,12 @@ public static class EntityBaseExtensions
         builder.SoftDeletableEntityBaseMap(userIdMaxLength);
     }
 
-    public static void OptimisticConcurrencyVersionMap<TEntity>(this EntityTypeBuilder<TEntity> builder,string propertyName = "RowVersion")
+    public static void OptimisticConcurrencyVersionMap<TEntity>(this EntityTypeBuilder<TEntity> builder, string propertyName = "RowVersion")
         where TEntity : class
     {
-            builder
-                .Property<byte[]>(propertyName)
-                .IsRowVersion();
+        builder
+            .Property<byte[]>(propertyName)
+            .IsRowVersion();
     }
 
     public static void AddQueryFilter<T>(this EntityTypeBuilder entityTypeBuilder, Expression<Func<T, bool>> expression)
@@ -73,5 +74,20 @@ public static class EntityBaseExtensions
         }
         var lambdaExpression = Expression.Lambda(expressionFilter, parameterType);
         entityTypeBuilder.HasQueryFilter(lambdaExpression);
+    }
+
+    public static void ApplySoftDeleteQueryFilter(this ModelBuilder modelBuilder)
+    {
+        var entityBaseType = typeof(ISoftDeletable);
+        var entities = modelBuilder.Model
+            .GetEntityTypes()
+            .Where(entityType => entityBaseType.IsAssignableFrom(entityType.ClrType))
+            .Where(x => x.BaseType is null)
+            .ToArray();
+
+        foreach (var entityType in entities)
+            modelBuilder
+            .Entity(entityType.ClrType)
+            .AddQueryFilter<ISoftDeletable>(e => e.IsDeleted == false);
     }
 }

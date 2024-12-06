@@ -49,6 +49,16 @@ public static class CollectionExtensions
         this IEnumerable<TSource?> source) =>
            source.Where(item => item is not null)!;
 
+    public static IEnumerable<TSource> WithoutNulls<TSource, TProperty>(
+        this IEnumerable<TSource?> source,
+        Expression<Func<TSource, TProperty?>> propertySelector)
+    {
+        var propertyFunc = propertySelector.Compile();
+        return source
+            .WithoutNulls()
+            .Where(item => propertyFunc(item) is not null);
+    }
+
 
     public static bool HasSameElements<T>(this IEnumerable<T> src, IEnumerable<T> dest) =>
         src.ToHashSet().SetEquals([.. dest]);
