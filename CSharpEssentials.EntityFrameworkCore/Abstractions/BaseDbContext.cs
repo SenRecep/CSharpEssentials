@@ -13,11 +13,11 @@ public abstract partial class BaseDbContext<TContext> : DbContext
     protected readonly IServiceProvider ServiceProvider;
 
     public BaseDbContext(
-        DbContextOptions<TContext> options, IServiceProvider serviceProvider) : base(options)
+        DbContextOptions<TContext> options, IServiceScopeFactory serviceScopeFactory) : base(options)
     {
+        var serviceProvider = serviceScopeFactory.CreateScope().ServiceProvider;
         Logger = serviceProvider.GetRequiredService<ILogger<TContext>>();
         ServiceProvider = serviceProvider;
-
         Logger.LogInformation("Context {DbContextInstanceId} created", _instanceId);
     }
 

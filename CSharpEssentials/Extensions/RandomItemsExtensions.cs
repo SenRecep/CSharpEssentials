@@ -27,7 +27,7 @@ public static class RandomItemsExtensions
         while (index < count)
         {
             int randomIndex = random.Next(0, sourceLength);
-            if (!selectedIndices[randomIndex])
+            if (selectedIndices[randomIndex].IsFalse())
             {
                 selectedIndices[randomIndex] = true;
                 resultArray[index++] = source[randomIndex];
